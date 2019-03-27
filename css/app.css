@@ -59,7 +59,7 @@ button:active {
 
 main {
     width: 600px;
-    margin: 70px auto;
+    margin: 50px auto;
     border-radius: 2px;
     position: relative;
    
@@ -98,19 +98,16 @@ main {
     display: flex;
     align-items: center;
     background-color: #FAFAFA;
-    width: 600px;
-    margin: 100px auto;
-    padding: 1.6em 3.4em;
-    padding-right: 3em;
+    width: 525px;
+    margin: 50px auto;
+    padding: 1.2em 1.7em;
     border-radius: 1.9em;        
     background-color: #323330;
 }
 
 .mainForm button {
     color:#FFCF11;
-    padding: 15px 40px;
     border-radius: 15px;
-    margin-left: 30px;
     background-color: rgba(158,158,158,.2);
 }
 

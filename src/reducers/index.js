@@ -1,53 +1,15 @@
-import { ADD, DELETE, EDIT } from '../actions';
+import { default as NoteReducer } from './allNotesR.js';
+import { default as createPageR } from './createPageR';
+import { default as PagNoteReducer } from './pagNotesR';
+import { default as CurrentPageReducer } from './currentPageR';
 
-import storage from '../localStorage';
-
-export default function reducer(state = [], action) {
-  let arrayNotes;
-  let type = action.type;
-  
-  if (type == ADD) {
-    let item = {
-      id: action.id,
-      title: action.title,
-      note: action.note
-    };
-    storage.write(item);
-
-    return [...state, item];
+function reducer(state = {}, action) {
+  return {
+    currentPage: CurrentPageReducer(state.currentPage, action),
+    allNotes: NoteReducer(state.allNotes, action),
+    pagNotes: PagNoteReducer(state.allNotes),
+    allPage: createPageR()
   }
-
-  if (type == DELETE) {
-    // arrayNotes = state.filter(item => item.id !== action.id);
-    let index = state.findIndex(item => item.id == action.id);
-    arrayNotes = state.slice(0, index).concat(state.slice(index+1))
-    storage.write(arrayNotes)
-    return arrayNotes;
-  }
-  
-
-  if (type == EDIT) {
-    arrayNotes = state.map(item => {
-      if (item.id !== action.id) {
-        return item
-      }
-      return Object.assign({}, item, {
-        title: action.title,
-        note: action.note
-      })
-    });
-    storage.write(arrayNotes)
-
-    return arrayNotes;
-  }
-
-
-
-return state
-
 }
 
-
-
-
-
+export default reducer;

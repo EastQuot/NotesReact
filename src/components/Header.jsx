@@ -8,6 +8,8 @@ function Header(props) {
   )
 };
 
-
+Header.defaultProps = {
+  title: 'Notes React'
+};
 
 export default Header

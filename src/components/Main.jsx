@@ -5,8 +5,7 @@ import Navigation from './Navigation.jsx';
 import Form from './Form.jsx';
 import App from './App.jsx';
 
-class Main extends React.Component {
-  render() {
+function Main(){
     return (
       <React.Fragment>
         <Route path="/" component={() => <Navigation />} />
@@ -14,7 +13,6 @@ class Main extends React.Component {
         <Route path="/notes" component={() => <App />} />
       </React.Fragment>
     )
-  }
 }
 
 export default Main;

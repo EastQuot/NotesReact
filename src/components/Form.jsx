@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+
 import Button from './Button.jsx';
 import { Add } from '../actions'
 
@@ -20,8 +21,10 @@ class Form extends React.Component {
 			let title = this.state.title;
 			let note = this.state.note;
 
+			
 			if (title) {
 				this.store.dispatch(Add(title, note))
+				this.store.dispatch({ type: 'PAGINATION' })
 				this.setState({ title: '', note: '' });
 			}
 		}
