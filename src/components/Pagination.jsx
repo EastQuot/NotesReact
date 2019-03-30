@@ -1,34 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 
+
+function mapStateToProps(state) {
+  return {
+    allPage: state.allPage,
+    currentPage: state.currentPage
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    handlePage(){ dispatch({ type: 'SETPAGE', page: event.target.innerHTML }) }
+  }
+}
+
 class Pagination extends React.Component {
-  constructor(props, context) {
-    super(props, context)
-
-    this.store = this.context.store
-
-    this.handlePage = () => {
-      let target = event.target;
-      this.store.dispatch({ type: 'SETPAGE', page: target.innerHTML })
-    }
-
-  }
-  componentDidMount() {
-    this.unsubscribe = this.store.subscribe(() => this.forceUpdate());
-  }
-
-  componentWillUnmount(){
-    this.unsubscribe()
-  }
-
   render() {
+    const {allPage, currentPage, handlePage } = this.props;
     return (
       <div className="pagination">
-        {this.store.getState().allPage.map(n =>
+        {allPage.map(n =>
           <li key={n}
-            onClick={this.handlePage}
-            className={this.store.getState().currentPage == n ? 'active' : ''}
+            onClick={handlePage}
+            className={currentPage == n ? 'active' : ''}
           >
             {n}
           </li>)
@@ -38,9 +32,7 @@ class Pagination extends React.Component {
   }
 }
 
-Pagination.contextTypes = {
-  store: PropTypes.object
-}
+const PagContainer = connect(mapStateToProps, mapDispatchToProps)(Pagination);
 
 
-export default Pagination;
+export default PagContainer;

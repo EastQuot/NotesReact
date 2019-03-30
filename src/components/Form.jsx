@@ -24,7 +24,6 @@ class Form extends React.Component {
 			
 			if (title) {
 				this.store.dispatch(Add(title, note))
-				this.store.dispatch({ type: 'PAGINATION' })
 				this.setState({ title: '', note: '' });
 			}
 		}
@@ -54,7 +53,7 @@ class Form extends React.Component {
 
 				<textarea
 					value={this.state.note}
-					onChange={this.handleChange}></textarea>
+					onChange={this.handleChange} />
 
 				<Button type="submit">Tape</Button>
 
