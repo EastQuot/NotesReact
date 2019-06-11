@@ -1,26 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import { Delete, Edit } from '../actions'
-import Note from './Note.jsx';
-
-function mapStateToProps(state) {
-  return {
-    pagNotes: state.pagNotes
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    handleDelete: (id) => dispatch(Delete(id)),
-    handleEdit: (id, title, note) => dispatch(Edit(id, title, note))
-  }
-}
-
+import { Actions } from '../actions'
+import Note from './Note.jsx'; 
+import { DependencyHOC }from '../DependencyHOC';
 
 class ListNotes extends React.Component {
+
    render() {
-     const { pagNotes, handleDelete, handleEdit } = this.props;
+     const { pagNotes, Delete, Edit } = this.props;
+
     return (
       <ul className="list">
         {pagNotes.map(item =>
@@ -29,15 +17,21 @@ class ListNotes extends React.Component {
             id={item.id}
             title={item.title}
             note={item.note}
-            onDelete={handleDelete}
-            onEdit={handleEdit}
+            onDelete={Delete}
+            onEdit={Edit}
           />)
         }
       </ul>)
   }
 }
 
-const ListContainer = connect(mapStateToProps, mapDispatchToProps)(ListNotes)
+ const mapStateToProps = (state) => {
+  return {
+    pagNotes: state.pagNotes
+  };
+}
 
-
-export default ListContainer;
+export default DependencyHOC(ListNotes, {
+  mapStateToProps,
+  Actions
+} );
